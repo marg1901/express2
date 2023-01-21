@@ -11,6 +11,8 @@ app.get("/api/users/:id", userMaster.getUsersById);
 
 app.post("/api/users", userMaster.postUsers);
 
+app.put("/api/users/:id,", userMaster.putUsers);
+
 app.listen(port, (err) => {
   if (err) {
     console.error("Something bad happened");
