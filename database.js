@@ -9,13 +9,13 @@ const database = mysql.createPool({
   database: process.env.DB_NAME,
 });
 
-database
-  .getConnection()
-  .then(() => {
-    console.log("Can reach database");
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+// database
+//   .getConnection()
+//   .then(() => {
+//     console.log("Can reach database");
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });
 
-exports.module = database;
+module.exports = database;
