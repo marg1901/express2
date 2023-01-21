@@ -8,7 +8,8 @@ const userMaster = require("./userMaster");
 
 app.get("/api/users", userMaster.getUsers);
 app.get("/api/users/:id", userMaster.getUsersById);
-app.post("/api/users", userMaster.getUsers);
+
+app.post("/api/users", userMaster.postUsers);
 
 app.listen(port, (err) => {
   if (err) {

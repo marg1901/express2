@@ -6,6 +6,10 @@ const getUsers = (req, res) => {
   });
 };
 
+const postUsers = (req, res) => {
+  const { firstname, lastname, email, city, language } = req.body;
+};
+
 const getUsersById = (req, res) => {
   const id = Number(req.params.id);
 
@@ -15,10 +19,6 @@ const getUsersById = (req, res) => {
     }
     res.status(200).json(users[0]);
   });
-
-  const postUser = (req, res) => {
-    const { firstname, lastname, email, city, language } = req.body;
-  };
 
   database
     .query(
@@ -37,4 +37,5 @@ const getUsersById = (req, res) => {
 module.exports = {
   getUsers,
   getUsersById,
+  postUsers,
 };
