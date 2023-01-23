@@ -13,6 +13,8 @@ app.post("/api/users", userMaster.postUsers);
 
 app.put("/api/users/:id,", userMaster.putUsers);
 
+app.delete("/api/users/:id", userMaster.deleteUsers);
+
 app.listen(port, (err) => {
   if (err) {
     console.error("Something bad happened");
