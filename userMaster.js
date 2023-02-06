@@ -45,6 +45,26 @@ const getUsersById = (req, res) => {
   });
 };
 
+const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
+  const { email } = req.body;
+
+  database
+    .query("select * from users where email = ?", [email])
+    .then(([users]) => {
+      if (users[0] != null) {
+        req.user = users[0];
+
+        next();
+      } else {
+        res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
+};
+
 const postUsers = (req, res) => {
   const { firstname, lastname, email, city, language, hashedPassword } =
     req.body;
@@ -87,7 +107,7 @@ const putUsers = (req, res) => {
 };
 
 const deleteUsers = (req, res) => {
-  const id = Number(req.params.id);
+  const id = parseInt(req.params.id);
 
   database
     .query("delete from users where id = ?", [id])
@@ -106,6 +126,7 @@ const deleteUsers = (req, res) => {
 module.exports = {
   getUsers,
   getUsersById,
+  getUserByEmailWithPasswordAndPassToNext,
   postUsers,
   putUsers,
   deleteUsers,
