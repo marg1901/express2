@@ -1,3 +1,31 @@
+const { body, validationResult } = require("express-validator");
+
+const validators = [];
+
+validators.push(body("firstname").isLength({ min: 3, max: 255 }).isString());
+validators.push(body("lastname").isLength({ min: 3, max: 255 }).isString());
+validators.push(body("city").isLength({ min: 3, max: 255 }).isString());
+validators.push(body("language").isLength({ min: 3, max: 255 }).isString());
+validators.push(
+  body("email", "It's not an email address !")
+    .isEmail()
+    .isLength({ min: 5, max: 255 })
+);
+validators.push(
+  body("password", "The password must have at least 3 chars.")
+    .isLength({ min: 3, max: 255 })
+    .isString()
+);
+
+validators.push((req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(422).json({ validationErrors: errors.array() });
+  } else {
+    next();
+  }
+});
+
 const validateUser = (req, res, next) => {
   const { firstname, lastname, city, language } = req.body;
   const { email } = req.body;
@@ -28,4 +56,5 @@ const validateUser = (req, res, next) => {
 
 module.exports = {
   validateUser,
+  validators,
 };
